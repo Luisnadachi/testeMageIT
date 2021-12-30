@@ -12,11 +12,13 @@
                         <span class="visually-hidden">(current)</span>
                     </a>
                 </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="#">Log in</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Sing in</a>
+                    <a class="nav-link" href="{{route('register-page')}}">Sing in</a>
                 </li>
             </ul>
         </div>
