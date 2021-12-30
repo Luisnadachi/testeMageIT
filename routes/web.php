@@ -20,6 +20,11 @@ Route::get('/', function () {
 
 Route::get('/register', [AuthController::class,'viewRegister'])->name('register-page');
 Route::post('/register', [AuthController::class, 'postRegister'])->name('register-user');
-Route::get('/login', [AuthController::class, 'viewLogin']);
-Route::post('/login', [AuthController::class,'postAuthenticate']);
+Route::get('/login', [AuthController::class, 'viewLogin'])->name('login-page');
+Route::post('/login', [AuthController::class,'postAuthenticate'])->name('login');
 
+Route::get('/logout', [AuthController::class, 'getLogout'])->name('logout-page');
+
+Route::get('/dashboard',function (){
+    return 'logado' . auth()->user()->email;
+})->middleware('auth');
