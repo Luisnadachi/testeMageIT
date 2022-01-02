@@ -46,7 +46,7 @@ class AuthController extends Controller
         $credentials = $request->validated();
         try {
             $this->repository->authenticate($credentials);
-            return redirect('/dashboard');
+            return redirect('/dashboard?page=1');
         } catch (\Exception $e) {
             return back()->withErrors(['wrong_password' => $e->getMessage()]);
         }
