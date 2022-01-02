@@ -23,8 +23,8 @@ class GithubController extends Controller
 
     public function viewGithubAccounts(Request $request)
     {
-        $github = [];
-        $github = $this->repository->fetchGithubAccounts();
+        $page = $request->get('page');
+        $github = $this->repository->fetchGithubAccounts($page);
 
         return view('github.dashboard', compact('github'));
     }

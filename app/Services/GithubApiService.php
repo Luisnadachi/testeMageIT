@@ -14,7 +14,7 @@ class GithubApiService
         ]);
     }
 
-    public function getGithubbyName(string $name)
+    public function getGithubByName(string $name)
     {
         $uri = 'users/' . $name;
         try {
@@ -26,12 +26,12 @@ class GithubApiService
         return json_decode($response->getBody(), true);
     }
 
-    public function getGithubAccounts()
+    public function getGithubAccounts(int $page = 0)
     {
-        $uri = 'users';
+        $uri = 'users?per_page=100&since=' . (100 * $page);
         try {
             $response = $this->client->get($uri);
-        } catch (GuzzleException $e){
+        } catch (GuzzleException $e) {
             return [];
         }
 

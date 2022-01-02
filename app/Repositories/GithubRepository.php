@@ -15,11 +15,12 @@ class GithubRepository
 
     public function fetchGithubByName(string $name)
     {
-        return $this->service->getGithubbyName($name);
+        return $this->service->getGithubByName($name);
     }
 
-    public function fetchGithubAccounts()
+    public function fetchGithubAccounts(int $page)
     {
-        return $this->service->getGithubAccounts();
+        $page -= 1;
+        return $this->service->getGithubAccounts($page);
     }
 }

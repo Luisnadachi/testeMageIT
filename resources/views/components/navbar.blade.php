@@ -8,26 +8,24 @@
 
         <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Inicio
-                        <span class="visually-hidden">(current)</span>
-                    </a>
-                </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 @guest()
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('login-page')}}">Log in</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('register-page')}}">Sign in</a>
+                    </li>
                 @endguest
                 @auth()
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">{{ auth()->user()->email }}</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('logout-page')}}">Logout</a>
                     </li>
                 @endauth
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('register-page')}}">Sing in</a>
-                </li>
             </ul>
         </div>
     </div>

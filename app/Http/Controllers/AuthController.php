@@ -2,28 +2,36 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
+use App\Repositories\AuthRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    /**
+     * @var AuthRepository
+     */
+    private $repository;
+
+    public function __construct(AuthRepository $repository)
+    {
+        $this->repository = $repository;
+
+    }
+
     public function viewRegister()
     {
         return view('auth.register');
     }
 
-    public function postRegister(Request $request)
+    public function postRegister(RegisterRequest $request)
     {
-        $validated = $this->validate($request, [
-            'email' => 'required|unique:users',
-            'password' => 'required|confirmed'
-        ]);
-
-        $validated['password'] = Hash::make($validated['password']);
-
-        User::create($validated);
+        $validated = $request->validated();
+        $this->repository->register($validated);
 
         return redirect('/');
     }
@@ -33,21 +41,19 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function postAuthenticate(Request $request)
+    public function postAuthenticate(LoginRequest $request)
     {
-        $credentials = $this->validate($request, [
-            'email' => 'required|exists:users',
-            'password'=>'required'
-        ]);
-
-        if(!Auth::attempt($credentials)){
-            return back()->withErrors(['wrong-password'=>'Senha errada.']);
+        $credentials = $request->validated();
+        try {
+            $this->repository->authenticate($credentials);
+            return redirect('/dashboard');
+        } catch (\Exception $e) {
+            return back()->withErrors(['wrong_password' => $e->getMessage()]);
         }
-
-        return redirect('/dashboard');
     }
 
-    public function getLogout(){
+    public function getLogout()
+    {
         Auth::logout();
 
         return redirect('/');
