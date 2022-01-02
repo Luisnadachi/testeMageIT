@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GithubController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,13 +19,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/register', [AuthController::class,'viewRegister'])->name('register-page');
+Route::get('/register', [AuthController::class, 'viewRegister'])->name('register-page');
 Route::post('/register', [AuthController::class, 'postRegister'])->name('register-user');
 Route::get('/login', [AuthController::class, 'viewLogin'])->name('login-page');
-Route::post('/login', [AuthController::class,'postAuthenticate'])->name('login');
+Route::post('/login', [AuthController::class, 'postAuthenticate'])->name('login');
 
 Route::get('/logout', [AuthController::class, 'getLogout'])->name('logout-page');
 
-Route::get('/dashboard',function (){
-    return 'logado' . auth()->user()->email;
-})->middleware('auth');
+Route::get('/github', [GithubController::class, 'viewGithubSeach']);
+Route::get('/dashboard', [GithubController::class, 'viewGithubAccounts']);
+
+
