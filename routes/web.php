@@ -26,7 +26,7 @@ Route::post('/login', [AuthController::class, 'postAuthenticate'])->name('login'
 
 Route::get('/logout', [AuthController::class, 'getLogout'])->name('logout-page');
 
-Route::get('/github', [GithubController::class, 'viewGithubSeach']);
+Route::get('/seach', [GithubController::class, 'viewGithubSeach'])->name('seach');
 Route::get('/dashboard', [GithubController::class, 'viewGithubAccounts'])->name('dashboard');
 
 

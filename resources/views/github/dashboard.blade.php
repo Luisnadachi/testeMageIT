@@ -1,6 +1,9 @@
 @extends('components.template')
 @section('title', 'Github Accounts')
 @section('content')
+    <div class="'d-flex">
+        <a href="{{route('seach')}}"> Busca</a>
+    </div>
     <table class="table table-hover">
         <thead>
         <tr>

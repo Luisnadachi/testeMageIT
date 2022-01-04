@@ -17,6 +17,7 @@
                 </div>
                 <button class="btn btn-primary mt-3" type="submit">Pesquisar</button>
             </form>
+            <a href="{{'dashboard?page=1'}}">Geral</a>
         </div>
         <div class="card mt-3">
             <h3 class="card-header"> Conta no Github: {{$github['login'] ?? 'Não encontrado'}}</h3>
